@@ -3,8 +3,12 @@
 //
 
 // 1. Import ContractKit
+const Web3 = require("web3")
+const ContractKit = require('@celo/contractKit')
 
 // 2. Init a new kit, connected to the alfajores testnet
+const web3 = new Web3('https://alfajores-forno.celo-testnet.org')
+const kit  = new ContractKit.newKitFromWeb3(web3)
 
 //
 // Read Accounts
@@ -12,9 +16,16 @@
 
 async function readAccount(){
     // 3. Get the token contract wrappers
+	let goldtoken   = await kit.contracts.getGoldToken()
+	let stabletoken = await kit.contracts.getStableToken()
     // 4. Address to look up
+	let anAdress    = '0xD86518b29BB52a5DAC5991eACf09481CE4B0710d'
     // 5. Get Get token balances
+	let celoBalance = await goldtoken.balanceOf(anAddress)
+	let cUSDBalance = await stabletoken.balanceOf(anAddress)
     // Print balances
+	console.log('${anAddress} CELO balance: ${celoBalance.toString()}')
+	console.log('${anAddress} cUSD balance: ${cUSDBalance.toString()}')
 }
 
 //
@@ -22,12 +33,23 @@ async function readAccount(){
 //
 
 // 6. Import the getAccount function
-
+const getAccount = require('./getAccount').getAccount
 async function createAccount(){
     // 7. Get your account    
+	let account = await getAccount()
+	
     // 8. Get the token contract wrappers  
-    // 9. Get your token balances
+    let goldtoken   = await kit.contracts.getGoldToken()
+	let stabletoken = await kit.contracts.getStableToken()
+	
+	// 9. Get your token balances
+	let celoBalance = await goldtoken.balanceOf(account.address)
+	let cUSDBalance = await stabletoken.balanceOf(account.address)
+	
     // Print your account info
+	console.log('Your account address: ${account.address}')
+	console.log('Your account CELO balance: ${celoBalance.toString()}')
+	console.log('Your account cUSD balance: ${cUSDBalance.toString()}')
 }
 
 //
