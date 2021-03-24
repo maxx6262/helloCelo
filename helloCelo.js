@@ -3,7 +3,7 @@
 //
 
 // 1. Import ContractKit
-const Web3 = require("web3")
+const Web3 = require('web3')
 const ContractKit = require('@celo/contractKit')
 
 // 2. Init a new kit, connected to the alfajores testnet
@@ -19,7 +19,7 @@ async function readAccount(){
 	let goldtoken   = await kit.contracts.getGoldToken()
 	let stabletoken = await kit.contracts.getStableToken()
     // 4. Address to look up
-	let anAdress    = '0xD86518b29BB52a5DAC5991eACf09481CE4B0710d'
+	let anAdress    = '0x3f16e07dc7a970cb1ede68f0156fc022f5617963'
     // 5. Get Get token balances
 	let celoBalance = await goldtoken.balanceOf(anAddress)
 	let cUSDBalance = await stabletoken.balanceOf(anAddress)
